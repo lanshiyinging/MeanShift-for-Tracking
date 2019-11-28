@@ -1,0 +1,23 @@
+function [tHist, delta] = calHist(z, zc)
+
+num = size(zc, 1);
+tHist = zeros(16*16*16, 1);
+tb = zeros(num, 1);
+delta = zeros(16*16*16, num);
+r = zc(:, 1);
+g = zc(:, 2);
+b = zc(:, 3);
+
+for i = 1:num
+	%tHist(floor(r(i)/16)+1,1) = tHist(floor(r(i),16)+1,1) + 1;
+	%tHist(floor(g(i)/16)+1,2) = tHist(floor(g(i),16)+1,2) + 1;
+	%tHist(floor(b(i)/16)+1,3) = tHist(floor(b(i),16)+1,3) + 1;
+	tb(i) = floor(r(i)/16)+1+(floor(g(i)/16))*16+(floor(b(i)/16))*256;
+    delta(tb(i), i) = 1;
+end
+
+k = K(z);
+C = 1 / sum(t_k);
+tHist(:,1) = C*delta(:,:,1)*k;
+tHist(:,2) = C*delta(:,:,2)*k;
+tHist(:,3) = C*delta(:,:,3)*k;
