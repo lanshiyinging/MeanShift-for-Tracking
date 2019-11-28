@@ -12,6 +12,8 @@ for i = 1:num
     delta(tb(i), i) = 1;
 end
 
-k = K(pos'*pos);
+k = K(pos);
 C = 1 / sum(k);
+size(delta)
+size(k)
 tHist = C*delta*k;
