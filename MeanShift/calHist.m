@@ -1,4 +1,4 @@
-function [tHist, delta] = calHist(pos, zc)
+function [tHist, delta] = calHist(z, zc)
 
 num = size(zc, 1);
 tb = zeros(num, 1);
@@ -12,8 +12,6 @@ for i = 1:num
     delta(tb(i), i) = 1;
 end
 
-k = K(pos);
+k = K(z);
 C = 1 / sum(k);
-size(delta)
-size(k)
 tHist = C*delta*k;
