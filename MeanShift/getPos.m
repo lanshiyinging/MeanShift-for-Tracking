@@ -1,15 +1,14 @@
-function [pos, pos_c, z] = getPos(rect, region)
+function [pos, pos_c, z] = getPos(region)
 
-x = rect(1);
-y = rect(2);
-w = rect(3);
-h = rect(4);
+
+[h, w, ~] = size(region);
+num = h*w;
 x0 = w/2;
 y0 = h/2;
-pos = zeros(w*h, 2);
-pos_c = zeros(w*h,3);
-z = zeros(w*h, 1);
-hh = pow2(x0) + pow2(y0);
+pos = zeros(num, 2);
+pos_c = zeros(num,3);
+z = zeros(num, 1);
+hh = x0^2+y0^2;
 n=1;
 for i = 1:h
     for j = 1:w
