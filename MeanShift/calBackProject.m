@@ -7,6 +7,7 @@ minS = 65;
 r_hsv = rgb2hsv(region);
 h = uint8(180*r_hsv(:,:,1));
 s = uint8(255*r_hsv(:,:,2));
+%{
 mask = zeros(row, col);
 
 for r = 1:row
@@ -16,6 +17,7 @@ for r = 1:row
         end
     end
 end
+%}
 
 for r = 1:row
     for c = 1:col
@@ -24,7 +26,7 @@ for r = 1:row
     end
 end
 
-r_bp = r_bp.*mask;
+%r_bp = r_bp.*mask;
 
 %{
 [row, col, ~] = size(region);

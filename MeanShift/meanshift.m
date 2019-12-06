@@ -2,9 +2,13 @@ close all;
 clear;
 
 %%read dataset_path
-g_rect=load('Biker/groundtruth_rect.txt');
-dataset_path='Biker/img/';
-frameFile=dir('Biker/img/*.jpg');
+base_path = 'Bird2';
+groundtruth_path = [base_path, '/groundtruth_rect.txt'];
+dataset_path = [base_path, '/img/'];
+frameFile_path = [dataset_path, '*.jpg'];
+g_rect=load(groundtruth_path);
+
+frameFile=dir(frameFile_path);
 frameNum=length(frameFile);
 target_rect = zeros(frameNum, 4);
 target_rect(1,:)=g_rect(1, :);
@@ -12,23 +16,20 @@ iteration = 20;
 
 
 first_frame = imread([dataset_path, frameFile(1).name]);
+%{
+figure(1);
+imshow(first_frame);
+[target_region, rect] = imcrop(first_frame);
+%}
 rect = target_rect(1, :);
-
 target_region = imcrop(first_frame, rect);
+
 [row, col, ~] = size(target_region);
+rect(3) = col-1;
+rect(4) = row-1;
 num = row*col;
 [target_pos, target_posc, target_z] = getPos(target_region);
 [q, q_delta] = calHist(target_z, target_posc);
-
-%{
-last_frame = imread([dataset_path, frameFile(i-1).name]);
-cur_frame = imread([dataset_path, frameFile(i).name]);
-t_x = target_rect(i-1, 1);
-t_y = target_rect(i-1, 2);
-target_region=last_frame(t_y:t_y+t_h, t_x:t_x+t_w, :);
-[target_pos, target_posc, target_z] = getPos(target_rect(i-1, :), target_region);
-[q, q_delta] = calHist(target_z, target_posc);
-%}
 
 for i = 2:frameNum
     cur_frame = imread([dataset_path, frameFile(i).name]);
@@ -66,7 +67,7 @@ for i = 2:frameNum
     %show(cur_frame, rect, g_rect(i, :));
 end
 
-showResult(target_rect, dataset_path);
+showResult(target_rect, base_path);
 
  
 
