@@ -26,12 +26,13 @@ for l=1:frameNum
     v3=rect(3);
     v4=rect(4);
     plot([v1, v1+v3],[v2,v2],[v1,v1],[v2,v2+v4],[v1+v3,v1+v3],[v2,v2+v4],[v1,v1+v3],[v2+v4,v2+v4],'LineWidth',2,'Color','r');
+    %{
     v1=g_rect(l,1);
     v2=g_rect(l,2);
     v3=g_rect(l,3);
     v4=g_rect(l,4);
     plot([v1, v1+v3],[v2,v2],[v1,v1],[v2,v2+v4],[v1+v3,v1+v3],[v2,v2+v4],[v1,v1+v3],[v2+v4,v2+v4],'LineWidth',2,'Color','g');
-    
+    %}
     frame = getframe(gcf);
     result = frame2im(frame);
     writeVideo(result_video, result);
